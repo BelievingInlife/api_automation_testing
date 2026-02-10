@@ -1,0 +1,11 @@
+# requrirements.in
+# ================
+
+# core
+pytest
+
+# api-test
+requests
+
+# data
+pandas
