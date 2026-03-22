@@ -1,1 +1,1 @@
-# api-automation-testing
+# api auto-mation testing
