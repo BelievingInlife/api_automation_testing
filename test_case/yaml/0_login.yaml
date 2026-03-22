@@ -1,0 +1,15 @@
+project_name: "pay-mock"
+module_name: "login"
+project_version: "v1"
+case_name: "用户名密码登陆验证"
+
+
+request:
+ url: "login/username"
+ method: POST
+ headers:
+  context-type: application/json
+
+
+test_datas:
+  
