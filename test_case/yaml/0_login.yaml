@@ -1,15 +1,29 @@
-project_name: "pay-mock"
-module_name: "login"
-project_version: "v1"
-case_name: "用户名密码登陆验证"
+base_info:
+ project: "pay-mock"
+ module: "login功能"
+ version: "v1"
+ title: "用户名密码登陆验证"
 
 
-request:
- url: "login/username"
- method: POST
- headers:
-  context-type: application/json
+case_steps:
+- send_login_request:
+   url: "{{base_url}}login/username"
+   method: POST
+   headers:
+    context-type: application/json
+   body:
+    username: "{{username}}"
+    password: "{{password}}"
+   response_assert:
+    - eq: ["status_code", 200]
+      eq: ["$.body.message", "{{expected}}"]
+   response_extract:
+    token: "$..token"
+
 
 
 test_datas:
-  
+  - title: "用户名密码正确"
+    username: "admin"
+    password: "123456"
+    expected: "登录成功"
