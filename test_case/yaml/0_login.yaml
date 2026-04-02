@@ -1,0 +1,47 @@
+base_info:
+ project: "pay-mock"
+ module: "login功能"
+ version: "v1"
+ title: "用户名密码登陆验证"
+
+
+case_steps:
+  - request_name: "send_login_request"
+    function_name: "login_username"
+    url: "{{url}}/login/username"
+    method: POST
+    headers:
+      context-type: application/json
+    body:
+      username: "{{username}}"
+      password: "{{password}}"
+    response_assert:
+      - eq: ["$.status", 200]
+      - eq: ["$.message", "{{expected01}}"]
+    response_extract:
+      token: "$..token"
+  - request_name: "send_select_user_request"
+    url: "{{url}}/get/userinfo"
+    method: GET
+    headers:
+      Authorization: "Bearer {{token}}"
+    body:
+      username: "{{username}}"
+    response_assert:
+      - eq: ["$.status", 200]
+      - eq: ["$.message", "{{expected02}}"]
+
+
+
+
+test_datas:
+  - case_name: "用户名密码正确"
+    username: "admin"
+    password: "123456"
+    expected01: "Login Successful"
+    expected02: "Select Successful"
+  - case_name: "用户名密码错误"
+    username: "notadmin"
+    password: "7890"
+    expected01: "Wrong username or password"
+    expected02: "Wrong username"
