@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  auto-test:
+    build: .
+    volumes:
+      - .:app
+
+    command: python main.py
