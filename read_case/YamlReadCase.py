@@ -16,7 +16,7 @@ def load_global_config():
         data = yaml.safe_load(f)
         # print(data)
         GlobalContext().set_global_context_dict(dict_value=data)
-        print(GlobalContext().show_global_context())
+        print(f'读取全局配置{GlobalContext().show_global_context()}')
 
 
 def reader_case_file(folder_path):
@@ -73,7 +73,7 @@ def create_test_case(test_case_path):
 
 if __name__ == '__main__':
     # print(reader_case_file("../test_case/yaml"))
-    # # load_global_config('config/config.yaml')
+    load_global_config()
     # print(os.path.join('api_automation_test'))
     # print(create_test_case('../test_case/yaml'))
     pass

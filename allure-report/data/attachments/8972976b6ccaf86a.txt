@@ -1,0 +1,6 @@
+http://127.0.0.1:5000/login/username
+====>>> move in login_username function
+====>>> move in all_assert function
+[{'eq': ['$.status', 200]}, {'eq': ['$.message', 'Login Successful']}]
+{'message': 'Login Successful', 'status': 200, 'token': '1234567890abcdefgh'}
+====>>> move in response_parse function

@@ -19,7 +19,7 @@ class TestRunning:
 
     @pytest.mark.parametrize('case_file', test_cases)
     def test_case_running(self, case_file):
-        # print(case_file.get('case_steps'))
+        # print(GlobalContext().show_global_context())
 
         case_steps = copy.deepcopy(case_file.get('case_steps'))
         base_info = case_file.get('base_info')
@@ -37,15 +37,17 @@ class TestRunning:
         parse_case_step = yaml.safe_load(Template(str(case_steps)).render(test_data))
 
         for case_step in parse_case_step:
-
+            print(case_step['url'])
             # print(f'{case_step}')
             with allure.step(case_step.get("request_name")):
                 function_name = case_step.get("function_name", None)
-                # print(function_name)
                 if function_name is None:
+                    # print(function_name)
                     method_name = case_step.get("method", None)
-                    if method_name == 'POST': case_step["function_name"] =  'http_post_request'
+                    # print(f'{method_name}')
+                    if method_name == 'POST': case_step["function_name"] = 'http_post_request'
                     if method_name == 'GET': case_step["function_name"] = 'http_get_request'
+                # print(case_step["function_name"])
                 try:
                     keyword = ApiKeyWords(requests).__getattribute__(case_step.get('function_name'))
                     response = keyword(**case_step).json()

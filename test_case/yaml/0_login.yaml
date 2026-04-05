@@ -6,19 +6,19 @@ base_info:
 
 
 case_steps:
-- send_login_request:
-   url: "{{base_url}}login/username"
-   method: POST
-   headers:
-    context-type: application/json
-   body:
-    username: "{{username}}"
-    password: "{{password}}"
-   response_assert:
-    - eq: ["status_code", 200]
-      eq: ["$.body.message", "{{expected}}"]
-   response_extract:
-    token: "$..token"
+- function_name: "login_username"
+  url: "{{url}}/login/username"
+  method: POST
+  headers:
+   context-type: application/json
+  body:
+   username: "{{username}}"
+   password: "{{password}}"
+  response_assert:
+   - eq: ["$.status", 200]
+   - eq: ["$.message", "{{expected}}"]
+  response_extract:
+   token: "$..token"
 
 
 
@@ -26,4 +26,4 @@ test_datas:
   - title: "用户名密码正确"
     username: "admin"
     password: "123456"
-    expected: "登录成功"
+    expected: "Login Successful"
