@@ -3,7 +3,12 @@ version: "3"
 services:
   auto-test:
     build: .
+    networks:
+      - test_network
     volumes:
       - ./:/app
 
     command: python main.py
+
+networks:
+  test_network:
