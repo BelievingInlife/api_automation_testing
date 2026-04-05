@@ -11,6 +11,7 @@ services:
       - /opt/api_automation_allure:/app/allure-report
 
     command: python main.py
+    restart: "no"
 
 networks:
   test_network:
