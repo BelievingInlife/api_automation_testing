@@ -13,3 +13,4 @@ services:
 
 networks:
   test_network:
+    external: true
