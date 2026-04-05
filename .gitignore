@@ -75,6 +75,10 @@ docs/_build/
 .pybuilder/
 target/
 
+# allure
+allure-report/
+allure-results/
+
 # Jupyter Notebook
 .ipynb_checkpoints
 
