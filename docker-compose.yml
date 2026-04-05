@@ -4,6 +4,6 @@ services:
   auto-test:
     build: .
     volumes:
-      - .:app
+      - ./:/app
 
     command: python main.py
