@@ -3,6 +3,7 @@ version: "3"
 services:
   auto-test:
     build: .
+    container_name: test_auto
     networks:
       - test_network
     volumes:
