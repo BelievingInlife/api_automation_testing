@@ -12,6 +12,8 @@ from custom_script.BusinessKeyWords import BusinessKeyWords
 from keywords.ApiKeyWords import ApiKeyWords
 
 from read_case.YamlReadCase import create_test_case
+from utils.TestLogger import step_with_logger
+
 
 class TestRunning:
 
@@ -37,35 +39,25 @@ class TestRunning:
         parse_case_step = yaml.safe_load(Template(str(case_steps)).render(test_data))
 
         for case_step in parse_case_step:
-            print(case_step['url'])
-            # print(f'{case_step}')
-            with allure.step(case_step.get("request_name")):
+
+            with step_with_logger(case_step.get("deception")):
+
                 function_name = case_step.get("function_name", None)
+                print(case_step.get("deception"))
                 if function_name is None:
-                    # print(function_name)
                     method_name = case_step.get("method", None)
-                    # print(f'{method_name}')
                     if method_name == 'POST': case_step["function_name"] = 'http_post_request'
                     if method_name == 'GET': case_step["function_name"] = 'http_get_request'
-                # print(case_step["function_name"])
+
                 try:
                     keyword = ApiKeyWords(requests).__getattribute__(case_step.get('function_name'))
-                    response = keyword(**case_step).json()
+                    keyword(**case_step)
                 except AttributeError:
                     # 扩展的关键字
                     keyword = BusinessKeyWords(requests).__getattribute__(case_step.get('function_name'))
-                    response = keyword(**case_step).json()
-                finally:
-                    allure.attach(
-                        body=str(case_step.get("body")),
-                        name="请求参数",
-                        attachment_type = allure.attachment_type.JSON
-                    )
-                    allure.attach(
-                        body=str(response),
-                        name="响应参数",
-                        attachment_type=allure.attachment_type.JSON
-                    )
+                    keyword(**case_step)
+                except Exception:
+                    raise
 
 
 

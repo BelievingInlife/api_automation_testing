@@ -2,9 +2,12 @@ from requests import Response
 from core.GlobalContext import GlobalContext
 from jsonpath_ng import parse
 
+from utils.TestLogger import insert_log
+
 
 def response_parse(response_data, response_extract):
-    print(f'====>>> move in response_parse function')
+    print(f'move in response_parse function')
+    insert_log("response_parse extract body", f"{response_data} and {response_extract}")
     is_response_data = isinstance(response_data, Response)
     is_response_extract = isinstance(response_extract, dict)
     # print(response_extract)

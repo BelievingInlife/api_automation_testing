@@ -7,6 +7,7 @@ base_info:
 
 case_steps:
 - function_name: "login_username"
+  deception: "第一步：登陆账户"
   url: "{{url}}/login/username"
   method: POST
   headers:
@@ -19,6 +20,16 @@ case_steps:
    - eq: ["$.message", "{{expected}}"]
   response_extract:
    token: "$..token"
+- deception: "第二步：获取用户信息"
+  url: "{{url}}/get/userinfo"
+  method: GET
+  headers:
+   Authorization: "Beader {{token}}"
+  body:
+   username: "{{username}}"
+  response_assert:
+   - eq: ["$.status", 200]
+   - eq: ["$.message", "{{expected01}}"]
 
 
 
@@ -27,3 +38,4 @@ test_datas:
     username: "admin"
     password: "123456"
     expected: "Login Successful"
+    expected01: "Select Successful"

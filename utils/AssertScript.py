@@ -1,16 +1,19 @@
 import jsonpath
 from requests import Response
 
+from utils.TestLogger import insert_log
+
 
 def all_assert(source_data, target_data):
-    print(f'====>>> move in all_assert function')
+    print(f'move in all_assert function')
+    insert_log("all_assert assert body", f"{source_data} and {target_data}")
     source_datas = source_data.get('response_assert', None)
-    print(source_datas)
+    # print(source_datas)
     # target_date 格式化，方便提取
     if isinstance(target_data, Response):
         target_data = target_data.json()
 
-    print(target_data)
+    # print(target_data)
     if source_datas is not None:
         for data in source_datas:
             for key, value in data.items():

@@ -3,6 +3,8 @@ import os
 import pytest
 from allure_combine import combine_allure
 
+
+
 pytest_args = [
     "-v","-s","--capture=sys",
     "--clean-alluredir",
